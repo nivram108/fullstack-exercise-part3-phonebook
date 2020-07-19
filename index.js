@@ -42,9 +42,9 @@ let persons =
     }
 ]
 
-app.get('/', (request, response) => {
-  response.send('<h1>Phonebook backend</h1>')
-})
+// app.get('/', (request, response) => {
+//   response.send('<h1>Phonebook backend</h1>')
+// })
 
 app.get('/persons', (request, response) => {
   const person = request.body
