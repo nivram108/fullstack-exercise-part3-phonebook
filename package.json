@@ -21,9 +21,10 @@
     "dev": "nodemon index.js",
     "build:ui": "rm -rf build && cd ../../part2/phonebook && npm run build && cp -r build ../../part3/phonebook_backend",
     "deploy": "git push heroku master",
-    "deploy:full": "sudo npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "logs:prod": "heroku logs --tail"
+    "logs:prod": "heroku logs --tail",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^7.5.0",
     "nodemon": "^2.0.4"
   },
   "proxy": "http://localhost:3001"

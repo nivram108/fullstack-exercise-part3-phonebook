@@ -1,12 +1,12 @@
 const express = require('express')
-const { request, response } = require('express')
+require('express')
 const app = express()
 app.use(express.json())
 const morgan = require('morgan')
 const cors = require('cors')
 require('dotenv').config()
 
-const mongoose = require('mongoose')
+require('mongoose')
 const Persons = require('./models/persons')
 
 app.use(cors())
@@ -22,29 +22,6 @@ app.use(morgan(function (tokens, req, res) {
     JSON.stringify(req.body)
   ].join(' ')
 }))
-let persons = 
-[
-    { 
-      "name": "Arto Hellas", 
-      "number": "040-123456",
-      "id": 1
-    },
-    { 
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523",
-      "id": 2
-    },
-    { 
-      "name": "Dan Abramov", 
-      "number": "12-43-234345",
-      "id": 3
-    },
-    { 
-      "name": "Mary Poppendieck", 
-      "number": "39-23-6423122",
-      "id": 4
-    }
-]
 
 app.get('/', (request, response) => {
   response.send('<h1>Phonebook backend</h1>')
@@ -59,7 +36,7 @@ app.get('/', (request, response) => {
 app.get('/api/persons', (request, response) => {
   Persons.find({})
     .then(person => {
-      console.log("persons:", person)
+      console.log('persons:', person)
       response.json(person)
     })
 })
@@ -70,7 +47,7 @@ app.get('/info', (request, response) => {
     .then(count => {
       response.send(`Phonebook has info for ${count} people <br> ${date}`)
     })
-  console.log("count:",count)
+  console.log('count:',count)
   // console.log("date :", request.headers)
 })
 
@@ -151,8 +128,6 @@ app.post('/api/persons', (request, response, next) => {
       response.json(savedPerson)
     })
     .catch(error => next(error))
-  
-  
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
@@ -170,19 +145,16 @@ app.put('/api/persons/:id', (request, response, next) => {
 })
 app.delete('/api/persons/:id', (request, response, next) => {
   Persons.findByIdAndRemove(request.params.id)
-    .then(result => {
-      response.status(204).end()
-    })
+    .then(response.status(204).end())
     .catch(error => next(error))
-}) 
-
+})
 
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
-  } else if (error.name === "ValidationError") {
+  } else if (error.name === 'ValidationError') {
     return response.status(400).send({ error: error.message })
   }
 
